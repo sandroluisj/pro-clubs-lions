@@ -138,6 +138,25 @@ function artilheiro() {
                 console.log(times)
                 menu()
             })}
+function tabela() {
+                if (times.length === 0) {
+                    console.log("Ainda não há times cadastrados para exibir na tabela.");
+                } else {
+                   
+                    times.sort((a, b) => a.valor - b.valor);
+            
+                    console.log("Tabela do Campeonato:");
+                    console.log("--------------------");
+                    times.forEach((time, index) => {
+                        console.log(`${index + 1}. ${time.nome} - Colocação: ${time.valor}`);
+                    });
+                }
+                menu(); 
+            }
+    
+   
+    
+
     
    
     
