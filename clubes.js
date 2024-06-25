@@ -50,3 +50,23 @@ menu()
         }
         })
 } 
+function cadastrar() {
+    rl.question("Digite o nome do time:" , (nome) => {
+        rl.question("Digite qual é o rank do time na tabela do campeonato:" , (valor) => {
+            times.push({nome: nome, valor: parseFloat(valor)})
+            console.log("time cadastrado!")
+            menu()
+        })
+    }) 
+}
+
+function listar() {
+    if (times.length == 0){
+    console.log("Ainda não há nenhum clube cadastrado.")
+    menu()
+    }
+    else {
+    console.log(times)
+    menu()
+    }
+}
