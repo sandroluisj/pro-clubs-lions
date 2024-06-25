@@ -131,6 +131,13 @@ function listar() {
             });
         }
     }
+function artilheiro() {
+        rl.question("Digite o artilheiro do campeonato:" , (artilheiro) => {
+          
+         times.push({artilheiro: artilheiro})
+                console.log(times)
+                menu()
+            })}
     
    
     
