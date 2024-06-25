@@ -16,7 +16,7 @@ menu()
     5- artilheiro do time
     6- tabela `)
     
-    rl.question('Escolha uma opção: ', (opcao) => {
+    rl.question('escolha uma opção: ', (opcao) => {
         switch(opcao){
             case "1":
             cadastrar()
@@ -44,15 +44,15 @@ menu()
             
 
             default:
-                console.log("Opcão inválida.")
+                console.log("opcão inválida.")
                 menu()
                 break                
         }
         })
 } 
 function cadastrar() {
-    rl.question("Digite o nome do time:" , (nome) => {
-        rl.question("Digite qual é o rank do time na tabela do campeonato:" , (valor) => {
+    rl.question("digite o nome do time:" , (nome) => {
+        rl.question("digite qual é o rank do time na tabela do campeonato:" , (valor) => {
             times.push({nome: nome, valor: parseFloat(valor)})
             console.log("time cadastrado!")
             menu()
@@ -62,7 +62,7 @@ function cadastrar() {
 
 function listar() {
     if (times.length == 0){
-    console.log("Ainda não há nenhum clube cadastrado.")
+    console.log("ainda não há nenhum clube cadastrado.")
     menu()
     }
     else {
@@ -72,7 +72,7 @@ function listar() {
 }
     function editar(){
         if (times.length == 0) {
-            console.log("Ainda não há time cadastrados.")
+            console.log("ainda não há time cadastrados")
             menu()
         }else {
             console.log('listar dastro ')
@@ -80,7 +80,7 @@ function listar() {
                 console.log(`${index +1}. ${times.nome}`)
             })
             
-            rl.question ("Digite o numero do time que deseja editar.", (numero) => {
+            rl.question ("digite o numero do time que deseja editar", (numero) => {
                 if (numero > 0 && numero <= times.length) {
                     rl.question('Digite o nome do clube:' , (nome) => {
                         rl.question('Digite a colocação:', (valor) =>{
@@ -100,65 +100,86 @@ function listar() {
     }
     }
     function registrar() {
-        if (times.length === 0) {
-            console.log("Ainda não há times cadastrados.");
-            menu();
-        } else {
-            console.log('Lista de times cadastrados:');
-            times.forEach((time, index) => {
-                console.log(`${index + 1}. ${time.nome}`);
+    if (times.length === 0) {
+        console.log("ainda não há times cadastrados.");
+        menu();
+    } else {
+        console.log('lista de times cadastrados:');
+        times.forEach((time, index) => {
+            console.log(`${index + 1}. ${time.nome}`);
+        });
+
+        rl.question("digite o número do time que venceu: ", (numeroVencedor) => {
+            let vencedorIndex = parseInt(numeroVencedor) - 1;
+
+            rl.question("digite o número do time que perdeu: ", (numeroPerdedor) => {
+                let perdedorIndex = parseInt(numeroPerdedor) - 1;
+
+                if (vencedorIndex < 0 || vencedorIndex >= times.length || perdedorIndex < 0 || perdedorIndex >= times.length) {
+                    console.log("número de time inválido.");
+                    menu();
+                    return;
+                }
+
+                let timeVencedor = times[vencedorIndex];
+                let timePerdedor = times[perdedorIndex];
+
+                if (timeVencedor.valor > timePerdedor.valor) {
+                    // Trocar as posições na tabela
+                    let temp = times[vencedorIndex];
+                    times[vencedorIndex] = times[perdedorIndex];
+                    times[perdedorIndex] = temp;
+
+                    console.log(`partida registrada: ${timeVencedor.nome} venceu ${timePerdedor.nome}`);
+                    console.log("tabela atualizada.");
+
+                } else {
+                    console.log(`partida registrada: ${timeVencedor.nome} venceu ${timePerdedor.nome}`);
+                    console.log("não houve mudança na tabela.");
+                }
+
+                menu();
             });
-    
-            rl.question("Digite o número do time que venceu: ", (numeroVencedor) => {
-                let vencedorIndex = parseInt(numeroVencedor) - 1;
-    
-                rl.question("Digite o número do time que perdeu: ", (numeroPerdedor) => {
-                    let perdedorIndex = parseInt(numeroPerdedor) - 1;
-    
-                    if (vencedorIndex < 0 || vencedorIndex >= times.length || perdedorIndex < 0 || perdedorIndex >= times.length) {
-                        console.log("Número de time inválido.");
-                    } else {
-                        let timeVencedor = times[vencedorIndex];
-                        let timePerdedor = times[perdedorIndex];
-    
-                        console.log(`Partida registrada:\n${timeVencedor.nome} venceu ${timePerdedor.nome}`);
-                        
-                    }
-    
-                    readline
+        });
+    }
+}
+function Artilheiro() {
+    if (times.length === 0) {
+        console.log("ainda não há times cadastrados.");
+        menu();
+    } else {
+        console.log('lista de times cadastrados:');
+        times.forEach((time, index) => {
+            console.log(`${index + 1}. ${time.nome}`);
+        });
+
+        rl.question("digite o número do time do artilheiro: ", (numeroTime) => {
+            const index = parseInt(numeroTime) - 1;
+            if (index >= 0 && index < times.length) {
+                rl.question("digite o nome do artilheiro: ", (artilheiro) => {
+                    times[index].artilheiro = artilheiro;
+                    console.log(`artilheiro ${artilheiro} cadastrado para o time ${times[index].nome}.`);
                     menu();
                 });
-            });
-        }
+            } else {
+                console.log("número de time inválido.");
+                menu();
+            }
+        });
     }
-function artilheiro() {
-        rl.question("Digite o artilheiro do campeonato:" , (artilheiro) => {
-          
-         times.push({artilheiro: artilheiro})
-                console.log(times)
-                menu()
-            })}
+}
 function tabela() {
                 if (times.length === 0) {
-                    console.log("Ainda não há times cadastrados para exibir na tabela.");
+                    console.log("ainda não há times cadastrados para exibir na tabela.");
                 } else {
                    
                     times.sort((a, b) => a.valor - b.valor);
             
-                    console.log("Tabela do Campeonato:");
-                    console.log("--------------------");
+                    console.log("tabela do campeonato:");
+                   
                     times.forEach((time, index) => {
-                        console.log(`${index + 1}. ${time.nome} - Colocação: ${time.valor}`);
+                        console.log(`${index + 1}. ${time.nome} - colocação: ${time.valor}`);
                     });
                 }
                 menu(); 
             }
-    
-   
-    
-
-    
-   
-    
-   
-    
