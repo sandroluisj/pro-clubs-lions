@@ -125,7 +125,7 @@ function listar() {
                 let timePerdedor = times[perdedorIndex];
 
                 if (timeVencedor.valor > timePerdedor.valor) {
-                    // Trocar as posições na tabela
+                   
                     let temp = times[vencedorIndex];
                     times[vencedorIndex] = times[perdedorIndex];
                     times[perdedorIndex] = temp;
