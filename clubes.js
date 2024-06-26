@@ -15,7 +15,8 @@ menu()
     4- registrar partida
     5- artilheiro do time
     6- tabela 
-    7- sair`)
+    7 - excluir
+    8- sair`)
     
     rl.question('escolha uma opção: ', (opcao) => {
         switch(opcao){
@@ -43,7 +44,13 @@ menu()
             tabela()
             break
 
-            case "7":
+            case "7": 
+            excluir()
+            break
+
+
+           
+            case "8":
                 console.log("saindo do programa...");
                 rl.close(); 
                 break;
@@ -192,4 +199,26 @@ function tabela() {
                     })
                 }
                 menu();
+            }
+            function excluir() {
+                if (times.length == 0){
+                    console.log("Não há nenhum alimento cadastrado.")
+                    menu()
+                }else {
+                    console.log('lista de alimentos')
+                    
+                    times.forEach((times, index) => {
+                        console.log(`${index + 1}. ${times.nome}`)
+                    })
+                    rl.question("Digite o numero do time que deseja remover", (numero) =>{
+                        if (numero > 0 && numero <= times.length) {
+                            times.splice(numero - 1, 1)
+                            console.log('time removido com sucesso!')
+                            menu()
+                        }else {
+                            console.log("Nome inválido.")
+                            menu()
+                        }
+                    })
+                }
             }
