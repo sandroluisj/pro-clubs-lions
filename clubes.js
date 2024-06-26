@@ -190,7 +190,7 @@ function tabela() {
                 if (times.length === 0) {
                     console.log("ainda não há times cadastrados para exibir na tabela.");
                 } else {
-                   
+                   times.sort((a,b)=> a.valor-b.valor)
             
                     console.log("tabela do campeonato:")
                    
@@ -202,10 +202,10 @@ function tabela() {
             }
             function excluir() {
                 if (times.length == 0){
-                    console.log("Não há nenhum alimento cadastrado.")
+                    console.log("Não há nenhum time cadastrado.")
                     menu()
                 }else {
-                    console.log('lista de alimentos')
+                    console.log('lista de times')
                     
                     times.forEach((times, index) => {
                         console.log(`${index + 1}. ${times.nome}`)
